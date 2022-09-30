@@ -5,6 +5,7 @@ import './Project.css'
 
 import React from 'react'
 import { useDocument } from '../../hooks/useDocument'
+import ProjectSumary from './ProjectSumary'
 
 export default function Project() {
 
@@ -22,7 +23,7 @@ export default function Project() {
 
   return (
     <div className='project-details'>
-      <h1>{document.name}</h1>
+      <ProjectSumary project = {document}/>
     </div>
   )
 }
