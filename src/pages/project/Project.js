@@ -6,6 +6,7 @@ import './Project.css'
 import React from 'react'
 import { useDocument } from '../../hooks/useDocument'
 import ProjectSumary from './ProjectSumary'
+import ProjectComments from './ProjectComments'
 
 export default function Project() {
 
@@ -24,6 +25,7 @@ export default function Project() {
   return (
     <div className='project-details'>
       <ProjectSumary project = {document}/>
+      <ProjectComments />
     </div>
   )
 }
