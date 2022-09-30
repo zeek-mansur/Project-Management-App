@@ -1,17 +1,20 @@
 import './Create.css'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
+import { useCollection } from '../../hooks/useCollection'
+
+const categories = [
+  {value: 'development', label: 'Development'}, 
+  {value: 'design', label: 'Design'},
+  {value: 'sales', label: 'Sales'},
+  {value: 'marketing', label: 'Marketing'}
+]
 
 export default function Create() {
 
-  const categories = [
-    {value: 'development', label: 'Development'}, 
-    {value: 'design', label: 'Design'},
-    {value: 'sales', label: 'Sales'},
-    {value: 'marketing', label: 'Marketing'}
-  ]
-  
+  const {documents} = useCollection('users')
+const[users, setUsers] = useState([])
 
   // form field values
 
@@ -19,11 +22,21 @@ export default function Create() {
   const [details, setDetails] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState('')
-  const [assignedUser, setAssignedUser]= useState([])
+  const [assignedUsers, setAssignedUsers]= useState([])
+
+  useEffect(() => {
+
+    if (documents){
+      const options = documents.map(user => {
+        return {value: user, label: user.displayName}
+      })
+      setUsers(options)
+    }
+  }, [documents])
 
   const handleSubmit = (e) => {
       e.preventDefault()
-      console.log(name, details, dueDate, category.value)
+      console.log(name, details, dueDate, category.value, assignedUsers)
   }
 
   return (
@@ -66,7 +79,11 @@ export default function Create() {
         </label>
         <label>
           <span> Assign to:</span>
-          
+          <Select 
+          onChange={(option) => setAssignedUsers(option)}
+          options={users}
+          isMulti
+          />
         </label>
         <button className='btn'>Add project</button>
       </form>
