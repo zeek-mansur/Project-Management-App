@@ -11,6 +11,7 @@ export const useLogout = () => {
   const logout = async () => {
     setError(null)
     setIsPending(true)
+    
 // sign the user out
     try {
       
